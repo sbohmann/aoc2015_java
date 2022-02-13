@@ -22,10 +22,10 @@ class A {
 
     private void solve() {
         result = input.codePoints()
-                .reduce(0, this::adaptValue);
+                .reduce(0, this::adaptedValue);
     }
 
-    private int adaptValue(int currentValue, int c) {
+    private int adaptedValue(int currentValue, int c) {
         switch (c) {
             case '(':
                 return currentValue + 1;
