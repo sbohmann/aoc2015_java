@@ -22,18 +22,15 @@ class A {
 
     private void solve() {
         result = input.codePoints()
-                .reduce(0, this::adaptedFloor);
+                .reduce(0, this::modifiedFloor);
     }
 
-    private int adaptedFloor(int currentValue, int c) {
-        switch (c) {
-            case '(':
-                return currentValue + 1;
-            case ')':
-                return currentValue - 1;
-            default:
-                throw new IllegalArgumentException("Unsupported input character [" + c + "]");
-        }
+    private int modifiedFloor(int currentFloor, int c) {
+        return switch (c) {
+            case '(' -> currentFloor + 1;
+            case ')' -> currentFloor - 1;
+            default -> throw new IllegalArgumentException("Unsupported input character [" + c + "]");
+        };
     }
 
     private void printResult() {

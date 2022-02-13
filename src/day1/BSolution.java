@@ -14,7 +14,7 @@ class BSolution {
 
     private void calculate() {
         for (var inputCharacter : Zip.withIndex(input)) {
-            adaptFloor(inputCharacter.value);
+            changeFloor(inputCharacter.value);
             if (floor == -1) {
                 result = inputCharacter.index + 1;
                 return;
@@ -23,7 +23,7 @@ class BSolution {
         solutionNotFound();
     }
 
-    private void adaptFloor(char inputCharacter) {
+    private void changeFloor(char inputCharacter) {
         floor = switch (inputCharacter) {
             case '(' -> floor + 1;
             case ')' -> floor - 1;
