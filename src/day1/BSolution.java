@@ -23,12 +23,12 @@ class BSolution {
         solutionNotFound();
     }
 
-    private void adaptFloor(char c) {
-        floor = switch (c) {
+    private void adaptFloor(char inputCharacter) {
+        floor = switch (inputCharacter) {
             case '(' -> floor + 1;
             case ')' -> floor - 1;
             default ->
-                throw new IllegalArgumentException("Unsupported input character [" + c + "]");
+                throw new IllegalArgumentException("Unsupported input character [" + inputCharacter + "]");
         };
     }
 
