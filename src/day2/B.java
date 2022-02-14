@@ -2,19 +2,19 @@ package day2;
 
 import common.InputFile;
 
-public class A {
-    private int totalArea = 0;
+public class B {
+    private int totalRibbonLength = 0;
 
     public static void main(String[] args) {
-        new A().solve();
+        new B().solve();
     }
 
     private void solve() {
         InputFile.forEachLine(getClass(), this::processLine);
-        System.out.println(totalArea);
+        System.out.println(totalRibbonLength);
     }
 
     private void processLine(String line) {
-        totalArea += new Parcel(line).area();
+        totalRibbonLength += new Parcel(line).ribbonLength();
     }
 }
