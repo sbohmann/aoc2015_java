@@ -19,6 +19,6 @@ public class HexString {
     }
 
     public static String forByte(byte value) {
-        return "" + HEX_CHARACTERS[value >>> 4] + HEX_CHARACTERS[value & 0xf];
+        return "" + HEX_CHARACTERS[(value >>> 4) & 0xf] + HEX_CHARACTERS[value & 0xf];
     }
 }

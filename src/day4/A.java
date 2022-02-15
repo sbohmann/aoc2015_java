@@ -33,7 +33,7 @@ public class A {
 
     private boolean suffixMatches(int suffix) {
         String text = input + suffix;
-        System.out.println(text);
+        System.out.println('[' + text + ']');
         String hash = MD5Hash.forAsciiString(text);
         System.out.println(hash);
         return hash

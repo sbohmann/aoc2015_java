@@ -8,11 +8,13 @@ public class MD5Hash {
     private static final String MD5_DIGEST_NAME = "MD5";
 
     public static String forData(byte[] data) {
-        return HexString.forBytes(createDigest().digest(data));
+        return HexString.forBytes(createDigest()
+                .digest(data));
     }
 
     public static String forAsciiString(String data) {
-        return HexString.forBytes(createDigest().digest(data.getBytes(StandardCharsets.US_ASCII)));
+        return HexString.forBytes(createDigest()
+                .digest(data.getBytes(StandardCharsets.US_ASCII)));
     }
 
     private static MessageDigest createDigest() {
