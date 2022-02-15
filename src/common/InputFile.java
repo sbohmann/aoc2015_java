@@ -2,10 +2,7 @@ package common;
 
 import day5.A;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Objects;
@@ -54,26 +51,7 @@ public class InputFile {
     }
 
     public static Stream<String> linesAsStream(Class<?> context) {
-        return StreamSupport.stream(
-                Spliterators.spliteratorUnknownSize(
-                        lines(context).iterator(),
-                        Spliterator.ORDERED),
-                false);
-    }
-
-    public static Iterable<String> lines(Class<?> context) {
-        BufferedReader reader = createBufferedReader(context);
-        return () -> new Iterator<>() {
-            @Override
-            public boolean hasNext() {
-                return bufferedReaderHasNextLine(reader);
-            }
-
-            @Override
-            public String next() {
-                return readLine(reader);
-            }
-        };
+        return createBufferedReader(context).lines();
     }
 
     private static BufferedReader createBufferedReader(Class<?> context) {
@@ -81,17 +59,6 @@ public class InputFile {
                 new InputStreamReader(
                         Objects.requireNonNull(context.getResourceAsStream(inputFileName)),
                         StandardCharsets.UTF_8));
-    }
-
-    private static boolean bufferedReaderHasNextLine(BufferedReader reader) {
-        try {
-            reader.mark(1);
-            var result = reader.read() >= 0;
-            reader.reset();
-            return result;
-        } catch (IOException error) {
-            throw new IllegalStateException(error);
-        }
     }
 
     private static String readLine(BufferedReader reader) {
