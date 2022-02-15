@@ -1,7 +1,6 @@
 package day2;
 
 import java.util.Arrays;
-import java.util.function.IntBinaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

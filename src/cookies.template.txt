@@ -1,0 +1,2 @@
+.adventofcode.com	TRUE	/	TRUE	1734567890	session	<session cookie value>
+# REMOVE THIS LINE - the 5th value is the expiration timestamp. set it to some time in the future
