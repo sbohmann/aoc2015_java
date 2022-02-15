@@ -3,15 +3,20 @@ package day4;
 import common.InputFile;
 import common.MD5Hash;
 
-public class A {
-    private static final String EXPECTED_HASH_PREFIX = "00000";
+public class AB {
+    private static final String EXPECTED_HASH_PREFIX_A = "00000";
+    private static final String EXPECTED_HASH_PREFIX_B = "000000";
+
+    private String expectedHashPrefix;
     private String input;
 
     public static void main(String[] args) {
-        new A().solve();
+        new AB().solve(EXPECTED_HASH_PREFIX_A);
+        new AB().solve(EXPECTED_HASH_PREFIX_B);
     }
 
-    private void solve() {
+    private void solve(String expectedHashPrefix) {
+        this.expectedHashPrefix = expectedHashPrefix;
         input = InputFile.read(getClass()).trim();
         searchForSolution();
     }
@@ -33,10 +38,7 @@ public class A {
 
     private boolean suffixMatches(int suffix) {
         String text = input + suffix;
-        System.out.println('[' + text + ']');
         String hash = MD5Hash.forAsciiString(text);
-        System.out.println(hash);
-        return hash
-                .startsWith(EXPECTED_HASH_PREFIX);
+        return hash.startsWith(expectedHashPrefix);
     }
 }
