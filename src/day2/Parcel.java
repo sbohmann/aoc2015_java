@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Parcel {
+class Parcel {
     private final int DIMENSIONS = 3;
     private static final Pattern pattern =
             Pattern.compile("(\\d+)x(\\d+)x(\\d+)");
