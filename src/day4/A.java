@@ -4,7 +4,7 @@ import common.InputFile;
 import common.MD5Hash;
 
 public class A {
-    private static final String EXPECTED_HASH_PREFIX = "000000";
+    private static final String EXPECTED_HASH_PREFIX = "00000";
     private String input;
 
     public static void main(String[] args) {
