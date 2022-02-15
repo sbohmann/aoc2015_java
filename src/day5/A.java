@@ -10,10 +10,14 @@ public class A {
     }
 
     private void solve() {
-        readInput().forEach(line -> System.out.println('[' + line + ']'));
+        var result = readInput()
+                .filter(TextInterpretation::nice)
+                .count();
+        System.out.println(result);
     }
 
     private Stream<String> readInput() {
-        return InputFile.linesAsStream(getClass());
+        return InputFile.linesAsStream(getClass())
+                .filter(TextInterpretation::nice);
     }
 }
