@@ -53,6 +53,14 @@ public class InputFile {
         }
     }
 
+    public static Stream<String> linesAsStream(Class<?> context) {
+        return StreamSupport.stream(
+                Spliterators.spliteratorUnknownSize(
+                        lines(context).iterator(),
+                        Spliterator.ORDERED),
+                false);
+    }
+
     public static Iterable<String> lines(Class<?> context) {
         BufferedReader reader = createBufferedReader(context);
         return () -> new Iterator<>() {
@@ -92,14 +100,6 @@ public class InputFile {
         } catch (IOException error) {
             throw new IllegalStateException(error);
         }
-    }
-
-    public static Stream<String> linesAsStream(Class<?> context) {
-        return StreamSupport.stream(
-                Spliterators.spliteratorUnknownSize(
-                        lines(context).iterator(),
-                        Spliterator.ORDERED),
-                false);
     }
 
     public interface CharConsumer {
