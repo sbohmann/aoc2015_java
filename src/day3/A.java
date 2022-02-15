@@ -2,8 +2,11 @@ package day3;
 
 import common.InputFile;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class A {
-    private final Houses houses = new Houses();
+    private final Set<Position> housesVisited = new HashSet<>();
     private Position currentPosition = new Position(0, 0);
 
     public static void main(String[] args) {
@@ -13,7 +16,7 @@ public class A {
     private void solve() {
         handleCurrentPosition();
         processInputFile();
-        System.out.println(houses.numberOfHousesVisited());
+        System.out.println(housesVisited.size());
     }
 
     private void processInputFile() {
@@ -27,10 +30,9 @@ public class A {
     private void handleDirection(Direction direction) {
         currentPosition = currentPosition.movedBy(direction);
         handleCurrentPosition();
-
     }
 
     private void handleCurrentPosition() {
-        houses.visit(currentPosition);
+        housesVisited.add(currentPosition);
     }
 }
