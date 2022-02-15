@@ -1,2 +1,3 @@
-.adventofcode.com	TRUE	/	TRUE	1734567890	session	<session cookie value>
+.adventofcode.com	TRUE	/	TRUE	1734567890	session	<session cookie value from your browser>
 # REMOVE THIS LINE - the 5th value is the expiration timestamp. set it to some time in the future
+# REMOVE THIS LINE - rename to cookies.txt in the same directory. It's in .gitignore but still be careful
