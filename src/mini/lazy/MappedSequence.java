@@ -33,7 +33,11 @@ public final class MappedSequence<T, U> implements Sequence<U> {
 
     @Override
     public <V> V reduce(V initialValue, BiFunction<V, ? super U, ? extends V> processing) {
-        return null;
+        var result = initialValue;
+        for (var element : source) {
+            result = processing.apply(result, transformation.apply(element));
+        }
+        return result;
     }
 
     @Override

@@ -33,7 +33,13 @@ public final class FlatMappedSequence<T, U> implements Sequence<U> {
 
     @Override
     public <V> V reduce(V initialValue, BiFunction<V, ? super U, ? extends V> processing) {
-        return null;
+        var result = initialValue;
+        for (var element : source) {
+            for (var innerElement : transformation.apply(element)) {
+                result = processing.apply(result, innerElement);
+            }
+        }
+        return result;
     }
 
     @Override
