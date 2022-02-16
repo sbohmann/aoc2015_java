@@ -1,5 +1,6 @@
 package mini;
 
+import java.util.Iterator;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -11,5 +12,12 @@ public interface Sequence<T> extends Iterable<T> {
 
     <U> Sequence<U> flatmap(Function<? super T, Sequence<? extends U>> transformation);
 
-    <U> U reduce(U initialValue, BiFunction<U, ? super T, ? extends U> processing);
+    default <U> U reduce(U initialValue, BiFunction<U, ? super T, ? extends U> processing) {
+        throw new UnsupportedOperationException("Attempt to call reduce() on a non-iterable Sequence");
+    }
+
+    @Override
+    default Iterator<T> iterator() {
+        throw new UnsupportedOperationException("Attempt to call iterator() on a non-iterable Sequence");
+    }
 }
