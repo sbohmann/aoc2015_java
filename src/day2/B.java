@@ -10,7 +10,7 @@ public class B {
     }
 
     private void solve() {
-        InputFile.forEachLine(getClass(), this::processLine);
+        InputFile.lines(getClass()).foreach(this::processLine);
         System.out.println(totalRibbonLength);
     }
 

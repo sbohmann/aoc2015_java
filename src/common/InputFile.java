@@ -1,5 +1,8 @@
 package common;
 
+import mini.Files;
+import mini.Sequence;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,16 +27,8 @@ public class InputFile {
         }
     }
 
-    public static void forEachLine(Class<?> context, Consumer<String> lineHandler) {
-        withBufferedReader(context, reader -> {
-            while (true) {
-                String line = readLine(reader);
-                if (line == null) {
-                    break;
-                }
-                lineHandler.accept(line);
-            }
-        });
+    public static Sequence<String> lines(Class<?> context) {
+        return Files.linesForClassPath(context, inputFileName);
     }
 
     private static void withBufferedReader(Class<?> context, Consumer<BufferedReader> useReader) {
