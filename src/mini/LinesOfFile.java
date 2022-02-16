@@ -1,5 +1,6 @@
 package mini;
 
+import mini.lazy.FlatMappedLazySequence;
 import mini.lazy.MappedLazySequence;
 
 import java.io.BufferedReader;
@@ -46,12 +47,16 @@ class LinesOfFile implements Sequence<String> {
 
     @Override
     public <U> Sequence<U> flatmap(Function<? super String, Sequence<? extends U>> transformation) {
-        return null;
+        return new FlatMappedLazySequence<>(this, transformation);
     }
 
     @Override
     public <U> U reduce(U initialValue, BiFunction<U, ? super String, ? extends U> processing) {
-        return null;
+        var result = initialValue;
+        for (var element : this) {
+            result = processing.apply(result, element);
+        }
+        return result;
     }
 
     private BufferedReader createBufferedReader() {
@@ -72,15 +77,25 @@ class LinesOfFile implements Sequence<String> {
 
     @Override
     public Iterator<String> iterator() {
+        var reader = createBufferedReader();
+
         return new Iterator<>() {
+            private String next;
+            private boolean finished;
+
             @Override
             public boolean hasNext() {
-                return false;
+                if (finished) {
+                    return false;
+                }
+                return next != null;
             }
 
             @Override
             public String next() {
-                return null;
+                var result = next;
+                next = readLine(reader);
+                return result;
             }
         };
     }
