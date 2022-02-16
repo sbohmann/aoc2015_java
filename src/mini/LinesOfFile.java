@@ -81,21 +81,16 @@ class LinesOfFile implements Sequence<String> {
 
         return new Iterator<>() {
             private String next;
-            private boolean finished;
 
             @Override
             public boolean hasNext() {
-                if (finished) {
-                    return false;
-                }
+                next = readLine(reader);
                 return next != null;
             }
 
             @Override
             public String next() {
-                var result = next;
-                next = readLine(reader);
-                return result;
+                return next;
             }
         };
     }

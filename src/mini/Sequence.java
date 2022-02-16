@@ -1,5 +1,6 @@
 package mini;
 
+import mini.lazy.FilteredSequence;
 import mini.lazy.FlatMappedSequence;
 import mini.lazy.MappedSequence;
 
@@ -7,6 +8,7 @@ import java.util.Iterator;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public interface Sequence<T> extends Iterable<T> {
     static <T> Sequence<T> forIterable(Iterable<T> source) {
@@ -37,6 +39,10 @@ public interface Sequence<T> extends Iterable<T> {
         return new FlatMappedSequence<>(this, transformation);
     }
 
+    default Sequence<T> filter(Predicate<? super T> predicate) {
+        return new FilteredSequence<>(this, predicate);
+    }
+
     default <U> U reduce(U initialValue, BiFunction<U, ? super T, ? extends U> processing) {
         U result = initialValue;
         for (var element : this) {
@@ -48,5 +54,13 @@ public interface Sequence<T> extends Iterable<T> {
     @Override
     default Iterator<T> iterator() {
         throw new UnsupportedOperationException("Attempt to call iterator() on a non-iterable Sequence");
+    }
+
+    default int count() {
+        int result = 0;
+        for (var element : this) {
+            ++result;
+        }
+        return result;
     }
 }

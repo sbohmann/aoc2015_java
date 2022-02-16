@@ -31,36 +31,6 @@ public class InputFile {
         return Files.linesForClassPath(context, inputFileName);
     }
 
-    private static void withBufferedReader(Class<?> context, Consumer<BufferedReader> useReader) {
-        try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(
-                        Objects.requireNonNull(context.getResourceAsStream(inputFileName)),
-                        StandardCharsets.UTF_8))) {
-            useReader.accept(reader);
-        } catch (IOException error) {
-            throw new IllegalStateException(error);
-        }
-    }
-
-    public static Stream<String> linesAsStream(Class<?> context) {
-        return createBufferedReader(context).lines();
-    }
-
-    private static BufferedReader createBufferedReader(Class<?> context) {
-        return new BufferedReader(
-                new InputStreamReader(
-                        Objects.requireNonNull(context.getResourceAsStream(inputFileName)),
-                        StandardCharsets.UTF_8));
-    }
-
-    private static String readLine(BufferedReader reader) {
-        try {
-            return reader.readLine();
-        } catch (IOException error) {
-            throw new IllegalStateException(error);
-        }
-    }
-
     public interface CharConsumer {
         void accept(char value);
     }

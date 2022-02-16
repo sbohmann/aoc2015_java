@@ -22,16 +22,6 @@ public final class MappedSequence<T, U> implements Sequence<U> {
     }
 
     @Override
-    public <V> Sequence<V> map(Function<? super U, ? extends V> nextTransformation) {
-        return new MappedSequence<>(this, nextTransformation);
-    }
-
-    @Override
-    public <V> Sequence<V> flatmap(Function<? super U, Sequence<? extends V>> nextTransformation) {
-        return new FlatMappedSequence<>(this, nextTransformation);
-    }
-
-    @Override
     public <V> V reduce(V initialValue, BiFunction<V, ? super U, ? extends V> processing) {
         var result = initialValue;
         for (var element : source) {

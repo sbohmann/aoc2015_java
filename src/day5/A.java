@@ -1,8 +1,7 @@
 package day5;
 
 import common.InputFile;
-
-import java.util.stream.Stream;
+import mini.Sequence;
 
 public class A {
     public static void main(String[] args) {
@@ -16,8 +15,7 @@ public class A {
         System.out.println(result);
     }
 
-    private Stream<String> readInput() {
-        return InputFile.linesAsStream(getClass())
-                .filter(TextInterpretation::nice);
+    private Sequence<String> readInput() {
+        return InputFile.lines(getClass());
     }
 }
