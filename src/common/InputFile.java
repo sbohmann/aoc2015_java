@@ -3,14 +3,11 @@ package common;
 import mini.Files;
 import mini.Sequence;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 public class InputFile {
     private static final String inputFileName = "input.txt";
@@ -35,11 +32,11 @@ public class InputFile {
         void accept(char value);
     }
 
+    // TODO replace with Sequence
     public static void forEachCharacter(Class<?> context, CharConsumer charHandler) {
         try (Reader reader = new InputStreamReader(
                 Objects.requireNonNull(context.getResourceAsStream(inputFileName)),
                 StandardCharsets.UTF_8)) {
-
             while (true) {
                 int input = reader.read();
                 if (input < 0) {
