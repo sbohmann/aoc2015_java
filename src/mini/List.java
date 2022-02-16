@@ -1,6 +1,7 @@
 package mini;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -15,6 +16,11 @@ public final class List<T> implements FiniteSequence<T>, MutableIndexAccess<T> {
 
     private List(Collection<T> source) {
         this.data = new ArrayList<>(source);
+    }
+
+    @SafeVarargs
+    public static <T> List<T> of(T ... elements) {
+        return new List<>(Arrays.asList(elements));
     }
 
     public static <T> List<T> copyOf(List<T> source) {
