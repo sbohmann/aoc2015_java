@@ -3,6 +3,7 @@ package mini;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -37,7 +38,7 @@ public final class List<T> implements FiniteSequence<T>, MutableIndexAccess<T> {
     }
 
     @Override
-    public <U> List<U> map(Function<? super T, U> transformation) {
+    public <U> List<U> map(Function<? super T, ? extends U> transformation) {
         var result = List.<U>withCapacity(data.size());
         for (var element : data) {
             result.add(transformation.apply(element));
@@ -46,7 +47,7 @@ public final class List<T> implements FiniteSequence<T>, MutableIndexAccess<T> {
     }
 
     @Override
-    public <U> List<U> flatmap(Function<? super T, Sequence<U>> transformation) {
+    public <U> List<U> flatmap(Function<? super T, Sequence<? extends U>> transformation) {
         var result = new List<U>();
         for (var element : data) {
             result.addAll(transformation.apply(element));
@@ -107,5 +108,9 @@ public final class List<T> implements FiniteSequence<T>, MutableIndexAccess<T> {
             data.ensureCapacity(data.size() + ((FiniteSequence<?>) source).size());
         }
         source.foreach(data::add);
+    }
+
+    public Iterator<T> iterator() {
+        return data.iterator();
     }
 }

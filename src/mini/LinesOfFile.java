@@ -1,10 +1,13 @@
 package mini;
 
+import mini.lazy.MappedLazySequence;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -37,12 +40,12 @@ class LinesOfFile implements Sequence<String> {
     }
 
     @Override
-    public <U> Sequence<U> map(Function<? super String, U> transformation) {
-        return null;
+    public <U> Sequence<U> map(Function<? super String, ? extends U> transformation) {
+        return new MappedLazySequence<>(this, transformation);
     }
 
     @Override
-    public <U> Sequence<U> flatmap(Function<? super String, Sequence<U>> transformation) {
+    public <U> Sequence<U> flatmap(Function<? super String, Sequence<? extends U>> transformation) {
         return null;
     }
 
@@ -65,5 +68,20 @@ class LinesOfFile implements Sequence<String> {
         } catch (IOException error) {
             throw new IllegalStateException(error);
         }
+    }
+
+    @Override
+    public Iterator<String> iterator() {
+        return new Iterator<>() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public String next() {
+                return null;
+            }
+        };
     }
 }
