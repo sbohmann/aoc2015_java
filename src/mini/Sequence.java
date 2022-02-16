@@ -9,7 +9,25 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public interface Sequence<T> extends Iterable<T> {
-    void foreach(Consumer<? super T> action);
+    static <T> Sequence<T> forIterable(Iterable<T> source) {
+        return new Sequence<>() {
+            @Override
+            public Iterator<T> iterator() {
+                return source.iterator();
+            }
+        };
+    }
+
+    static Sequence<Character> forString(String text) {
+        return Sequence.forIterable(() -> text.chars().iterator())
+                .map(c -> (Character) (char) c.intValue());
+    }
+
+    default void foreach(Consumer<? super T> action){
+        for (var element : this) {
+            action.accept(element);
+        }
+    }
 
     default <U> Sequence<U> map(Function<? super T, ? extends U> transformation) {
         return new MappedSequence<>(this, transformation);
@@ -20,7 +38,11 @@ public interface Sequence<T> extends Iterable<T> {
     }
 
     default <U> U reduce(U initialValue, BiFunction<U, ? super T, ? extends U> processing) {
-        throw new UnsupportedOperationException("Attempt to call reduce() on a non-iterable Sequence");
+        U result = initialValue;
+        for (var element : this) {
+            result = processing.apply(result, element);
+        }
+        return result;
     }
 
     @Override
