@@ -8,7 +8,7 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public final class List<T> implements FiniteSequence<T>, MutableIndexAccess<T> {
+public final class List<T> implements Sequence<T>, MutableIndexAccess<T> {
     private final ArrayList<T> data;
 
     public List() {
@@ -104,8 +104,8 @@ public final class List<T> implements FiniteSequence<T>, MutableIndexAccess<T> {
     }
 
     private void addAllFromGenericSequence(Sequence<? extends T> source) {
-        if (source instanceof FiniteSequence<?>) {
-            data.ensureCapacity(data.size() + ((FiniteSequence<?>) source).size());
+        if (source instanceof Countable) {
+            data.ensureCapacity(data.size() + ((Countable) source).size());
         }
         source.foreach(data::add);
     }
