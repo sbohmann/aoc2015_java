@@ -44,6 +44,26 @@ public final class FlatMappedSequence<T, U> implements Sequence<U> {
 
     @Override
     public Iterator<U> iterator() {
-        return null;
+        return new Iterator<>() {
+            final Iterator<T> sourceIterator = source.iterator();
+            Iterator<? extends U> innerIterator;
+
+            @Override
+            public boolean hasNext() {
+                if (innerIterator != null && innerIterator.hasNext()) {
+                    return true;
+                }
+                if (sourceIterator.hasNext()) {
+                    innerIterator = transformation.apply(sourceIterator.next()).iterator();
+                    return innerIterator.hasNext();
+                }
+                return false;
+            }
+
+            @Override
+            public U next() {
+                return innerIterator.next();
+            }
+        };
     }
 }

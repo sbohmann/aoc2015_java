@@ -42,6 +42,18 @@ public final class MappedSequence<T, U> implements Sequence<U> {
 
     @Override
     public Iterator<U> iterator() {
-        return null;
+        return new Iterator<>() {
+            final Iterator<T> sourceIterator = source.iterator();
+
+            @Override
+            public boolean hasNext() {
+                return sourceIterator.hasNext();
+            }
+
+            @Override
+            public U next() {
+                return transformation.apply(sourceIterator.next());
+            }
+        };
     }
 }
