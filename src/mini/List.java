@@ -6,7 +6,7 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class List<T> implements FiniteSequence<T>, MutableIndexAccess<T> {
+public final class List<T> implements FiniteSequence<T>, MutableIndexAccess<T> {
     private final ArrayList<T> data;
 
     public List() {
