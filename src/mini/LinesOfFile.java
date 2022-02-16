@@ -1,7 +1,7 @@
 package mini;
 
-import mini.lazy.FlatMappedLazySequence;
-import mini.lazy.MappedLazySequence;
+import mini.lazy.FlatMappedSequence;
+import mini.lazy.MappedSequence;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -42,12 +42,12 @@ class LinesOfFile implements Sequence<String> {
 
     @Override
     public <U> Sequence<U> map(Function<? super String, ? extends U> transformation) {
-        return new MappedLazySequence<>(this, transformation);
+        return new MappedSequence<>(this, transformation);
     }
 
     @Override
     public <U> Sequence<U> flatmap(Function<? super String, Sequence<? extends U>> transformation) {
-        return new FlatMappedLazySequence<>(this, transformation);
+        return new FlatMappedSequence<>(this, transformation);
     }
 
     @Override

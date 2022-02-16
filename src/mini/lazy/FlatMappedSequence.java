@@ -7,28 +7,28 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public final class MappedLazySequence<T, U> implements Sequence<U> {
+public final class FlatMappedSequence<T, U> implements Sequence<U> {
     private final Sequence<T> source;
-    private final Function<? super T, ? extends U> transformation;
+    private final Function<? super T, Sequence<? extends U>> transformation;
 
-    public MappedLazySequence(Sequence<T> source, Function<? super T, ? extends U> transformation) {
+    public FlatMappedSequence(Sequence<T> source, Function<? super T, Sequence<? extends U>> transformation) {
         this.source = source;
         this.transformation = transformation;
     }
 
     @Override
     public void foreach(Consumer<? super U> action) {
-        source.foreach(element -> action.accept(transformation.apply(element)));
+        source.foreach(element -> transformation.apply(element).foreach(action));
     }
 
     @Override
     public <V> Sequence<V> map(Function<? super U, ? extends V> nextTransformation) {
-        return new MappedLazySequence<>(this, nextTransformation);
+        return new MappedSequence<>(this, nextTransformation);
     }
 
     @Override
     public <V> Sequence<V> flatmap(Function<? super U, Sequence<? extends V>> nextTransformation) {
-        return new FlatMappedLazySequence<>(this, nextTransformation);
+        return new FlatMappedSequence<>(this, nextTransformation);
     }
 
     @Override
