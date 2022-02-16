@@ -12,6 +12,7 @@ import java.util.Objects;
 public class InputFile {
     private static final String inputFileName = "input.txt";
 
+    // TODO read entire file via mini
     public static String read(Class<?> context) {
         try {
             var stream = context.getResourceAsStream(inputFileName);
