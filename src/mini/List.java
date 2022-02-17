@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public final class List<T> implements Sequence<T>, MutableIndexAccess<T> {
     private final ArrayList<T> data;
@@ -35,24 +34,6 @@ public final class List<T> implements Sequence<T>, MutableIndexAccess<T> {
     @Override
     public void foreach(Consumer<? super T> action) {
         data.forEach(action);
-    }
-
-    @Override
-    public <U> List<U> map(Function<? super T, ? extends U> transformation) {
-        var result = List.<U>withCapacity(data.size());
-        for (var element : data) {
-            result.add(transformation.apply(element));
-        }
-        return result;
-    }
-
-    @Override
-    public <U> List<U> flatmap(Function<? super T, Sequence<? extends U>> transformation) {
-        var result = new List<U>();
-        for (var element : data) {
-            result.addAll(transformation.apply(element));
-        }
-        return result;
     }
 
     @Override
