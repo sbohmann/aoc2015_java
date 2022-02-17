@@ -3,14 +3,14 @@ package day5;
 import common.InputFile;
 import mini.Sequence;
 
-public class A {
+public class B {
     public static void main(String[] args) {
-        new A().solve();
+        new B().solve();
     }
 
     private void solve() {
         var result = readInput()
-                .filter(ATextInterpretation::nice)
+                .filter(BTextInterpretation::nice)
                 .count();
         System.out.println(result);
     }

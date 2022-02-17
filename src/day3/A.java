@@ -20,7 +20,7 @@ public class A {
     }
 
     private void processInputFile() {
-        InputFile.forEachCharacter(getClass(), this::handleInputCharacter);
+        InputFile.characters(getClass()).foreach(this::handleInputCharacter);
     }
 
     private void handleInputCharacter(char c) {

@@ -3,7 +3,7 @@ package day5;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-class TextInterpretation {
+class ATextInterpretation {
     private static final Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u');
     private static final Pattern offensiveWordPattern = Pattern.compile(
             "ab|cd|pq|xy"
@@ -13,7 +13,7 @@ class TextInterpretation {
 
     final boolean nice;
 
-    public TextInterpretation(String text) {
+    public ATextInterpretation(String text) {
         this.text = text;
         nice = vowelCount() >= 3
                 && containsRepetitions()
@@ -21,7 +21,7 @@ class TextInterpretation {
     }
 
     static boolean nice(String text) {
-        return new TextInterpretation(text).nice;
+        return new ATextInterpretation(text).nice;
     }
 
     private long vowelCount() {
